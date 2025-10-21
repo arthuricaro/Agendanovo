@@ -25,6 +25,26 @@ def listar_contato(request):
     return render(request, 'core/listar_contato.html',
                   {'contato': contato})
 
+def editar_Contato(request, id):
+    contato = get_object_or_404(Contato, id=id)
+    if request.method != 'POST':
+        nome = request.POST.get('nome')
+        sobrenome = request.POST.get('sobrenome')
+        telefone = request.POST.get('telefone')
+        imagem = request.FILE.get('imagem')
+
+        contato.nome = nome
+        contato.sobrenome = sobrenome
+        contato.telefone = telefone
+        contato.imagem = imagem
+        contato.save()
+        return redirect('listar_contato')
+
+    context = {
+        'contato': contato
+    }
+    return render(request, 'core/editar_contato.html', context)
+
 
 
 
