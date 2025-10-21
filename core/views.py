@@ -45,7 +45,8 @@ def editar_Contato(request, id):
     }
     return render(request, 'core/editar_contato.html', context)
 
-
-
-
+def excluirContato(request, id):
+    contato = Contato.objects.get(id=id)
+    contato.delete()
+    return redirect('listar_contato')
 
